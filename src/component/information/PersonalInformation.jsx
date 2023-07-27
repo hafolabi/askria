@@ -55,6 +55,8 @@ function PersonalInformation({personalData, handleChangeInput, setSelectQmodal})
 					</div>
 				</div>
 				<Input
+					type='number'
+					min={0}
 					className='outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full'
 				/>
 				<div className='flex justify-between items-center'>
