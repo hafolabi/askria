@@ -40,7 +40,7 @@ function PersonalInformation({
         </label>
         <br />
         <Input
-          value={personalData.lasttName}
+          value={personalData.lastName}
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
