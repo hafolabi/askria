@@ -8,15 +8,16 @@ function PersonalInformation({
   personalData,
   handleChangeInput,
   setSelectQmodal,
+  addQuestion
 }) {
   return (
     <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden">
       <div className="bg-[#D0F7FA] mb-4 p-3 py-4">
-        <b>Personal Information</b>
+      <span className="font-medium">Personal Information</span>
       </div>
 
       <div className="px-6 pb-5">
-        <label htmlFor="first_name" className="font-bold">
+        <label htmlFor="first_name" className="font-medium">
           First Name
         </label>
         <br />
@@ -26,7 +27,7 @@ function PersonalInformation({
           value={personalData.firstName}
           onChange={handleChangeInput}
         />
-        <label htmlFor="first_name" className="font-bold ">
+        <label htmlFor="first_name" className="font-medium ">
           Email
         </label>
         <br />
@@ -35,7 +36,7 @@ function PersonalInformation({
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
-        <label htmlFor="first_name" className="font-bold ">
+        <label htmlFor="first_name" className="font-medium ">
           Last Name
         </label>
         <br />
@@ -45,7 +46,7 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-bold ">
+          <label htmlFor="first_name" className="font-medium ">
             Phone <span className="font-light">(without dial code)</span>
           </label>
           <div className="flex items-center gap-8">
@@ -65,7 +66,7 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-bold ">
+          <label htmlFor="first_name" className="font-medium ">
             Nationality
           </label>
           <div className="flex items-center gap-8">
@@ -83,7 +84,7 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-bold ">
+          <label htmlFor="first_name" className="font-medium ">
             Current Residence
           </label>
           <div className="flex items-center gap-8">
@@ -101,7 +102,7 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-bold ">
+          <label htmlFor="first_name" className="font-medium ">
             ID Number
           </label>
           <div className="flex items-center gap-8">
@@ -119,7 +120,7 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-bold ">
+          <label htmlFor="first_name" className="font-medium ">
             Date of Birth
           </label>
           <div className="flex items-center gap-8">
@@ -137,7 +138,7 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-bold ">
+          <label htmlFor="first_name" className="font-medium ">
             Gender
           </label>
           <div className="flex items-center gap-8">
@@ -158,9 +159,12 @@ function PersonalInformation({
 
       <button
         className="flex items-center font-semibold ml-4 mb-5"
-        onClick={() => setSelectQmodal(true)}
+        onClick={() => {
+          addQuestion(2)
+          setSelectQmodal(true)
+        }}
       >
-        <RiAddFill className="text-2xl font-bold" />
+        <RiAddFill className="text-2xl font-medium" />
         Add a question
       </button>
     </div>
