@@ -3,7 +3,7 @@
 import { Checkbox, Input, Select, Switch } from "antd";
 import React from "react";
 import { RiAddFill } from "react-icons/ri";
-import SelectQuestion from "../questions/SelectQuestions";
+import SelectQuestion from "../questions/SelectPersonalInfoQuestions";
 
 function PersonalInformation({
   personalData,
@@ -11,8 +11,14 @@ function PersonalInformation({
   setSelect,
   addQuestion,
   attributes,
-  select, 
-  handleChange
+  select,
+  handleChange,
+  setSelectedOption,
+  setPayload,
+  payload,
+  setPersonalInfoOtherOption,
+  personalInfoOtherOption,
+  savePersonalQuest
 }) {
   return (
     <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden">
@@ -276,19 +282,53 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
       </div>
-      {!select ?
-      <button
-        className="flex items-center font-semibold ml-4 mb-5"
-        onClick={() => {
-          addQuestion(2);
-          setSelect(true);
-        }}
-      >
-        <RiAddFill className="text-2xl font-medium" />
-        Add a question
-      </button> :
-      <SelectQuestion select={select} setSelect={setSelect} handleChange={handleChange}/>
+      {!select ?  
+      <>
+      {attributes?.personalInformation?.personalQuestions?.length > 0 &&
+       attributes?.personalInformation?.personalQuestions.map(personalQuestion=>(
+        <div className="mb-7 p-4">
+          <SelectQuestion
+            setSelect={setSelect}
+            handleChange={handleChange}
+            personalQuestion={personalQuestion}
+            setSelectedOption={setSelectedOption}
+            setPayload={setPayload}
+            payload={payload}
+            setPersonalInfoOtherOption={setPersonalInfoOtherOption}
+            personalInfoOtherOption={personalInfoOtherOption}
+            savePersonalQuest={savePersonalQuest}
+          />
+          </div>
+       )) 
       }
+        <button
+          className="flex items-center font-semibold ml-4 mb-5"
+          onClick={() => {
+            addQuestion('personalQuestions');
+            setSelect(true);
+          }}
+        >
+          <RiAddFill className="text-2xl font-medium" />
+          Add a question
+        </button>
+        </>
+        :
+        attributes?.personalInformation?.personalQuestions?.length > 0 &&
+          attributes?.personalInformation?.personalQuestions.map(personalQuestion=>(
+           <div className="mb-7 p-4">
+             <SelectQuestion
+               setSelect={setSelect}
+               handleChange={handleChange}
+               personalQuestion={personalQuestion}
+               setSelectedOption={setSelectedOption}
+               setPayload={setPayload}
+               payload={payload}
+               setPersonalInfoOtherOption={setPersonalInfoOtherOption}
+               savePersonalQuest={savePersonalQuest}
+             />
+             </div>
+          )) 
+         }
     </div>
   );
 }

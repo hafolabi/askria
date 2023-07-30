@@ -12,12 +12,13 @@ import ModalParagraph from "../component/questionsModals/ModalParagraph";
 import ModalShortAnswer from "../component/questionsModals/ModalShortAnswer";
 import VideoBasedQuestionsModal from "../component/questionsModals/VideoBasedQuestionsModal";
 import DropdownQuestionModal from "../component/questionsModals/DropdownQuestionModal";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import dataService from "../services/appData";
+import Profile from "../component/information/Profile";
 
 function SignUp() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [personalData, setPersonalData] = useState({
     file: "",
     firstName: "",
@@ -33,10 +34,10 @@ function SignUp() {
     experience: "",
     resume: "",
   });
-  const [payload, setPayload] = useState({})
-  const {attributes} = payload
-  console.log('payload', payload)
-  console.log('attributes', attributes)
+  const [payload, setPayload] = useState({});
+  const { attributes } = payload;
+  console.log("payload", payload);
+  console.log("attributes", attributes);
 
   function generateId() {
     return uuidv4();
@@ -44,29 +45,26 @@ function SignUp() {
 
   //api all to fetech the available payload record
 
-  const getPayload = async()=>{
-    try{
-      const response = await dataService.getPayload()
-      setPayload(response.data)
-    }catch(err){
+  const getPayload = async () => {
+    try {
+      const response = await dataService.getPayload();
+      setPayload(response.data);
+    } catch (err) {
       //catch the error that occured in this process here.
     }
-  }
-
-  useEffect(()=>{
-    //call the get method on page load.
-    getPayload();
-  },[])
-
+  };
+  const [personalInfoOtherOption, setPersonalInfoOtherOption] = useState(false);
+  const [personalInfoOtherOption2, setPersonalInfoOtherOption2] = useState(false);
+  console.log("personalInfoOtherOption", personalInfoOtherOption);
   const [question, setQuestion] = useState({
-    "id": "",
-    "type": "",
-    "question": "",
-    "choices": [""],
-    "maxChoice": 0,
-    "disqualify": false,
-    "other": false
-  })
+    id: "",
+    type: "",
+    question: "",
+    choices: [""],
+    maxChoice: 0,
+    disqualify: false,
+    other: false,
+  });
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -76,76 +74,93 @@ function SignUp() {
     }));
   };
 
-  function addQuestion(params) {
-    if(params == '1'){
-      let question0 = payload.attributes.coverImage
-      question0 = [...question0, {...question, id: generateId()}];
-        payload.attributes.coverImage = question0;
-        setPayload(payload);
-    }else if(params == '2'){
-      let question1 = payload.attributes.personalInformation.personalQuestions
-      question1 = [...question1, {...question, id: generateId()}];
-        payload.attributes.personalInformation.personalQuestions = question1;
-        setPayload(payload);
-    }else if(params == '3'){
-      let question2 = payload.attributes.profile.profileQuestions
-      question2 = [...question2, {...question, id: generateId()}];
-        payload.attributes.profile.profileQuestions = question2;
-        setPayload(payload);
+  function addQuestion(addedQuestions) {
+    if (addedQuestions === "personalQuestions") {
+      let question1 = payload.attributes.personalInformation.personalQuestions;
+      question1 = [...question1, { ...question, id: generateId() }];
+      payload.attributes.personalInformation.personalQuestions = question1;
+      setPayload(payload);
+    } else if (addedQuestions === "profileQuestions") {
+      let question2 = payload.attributes.profile.profileQuestions;
+      question2 = [...question2, { ...question, id: generateId() }];
+      payload.attributes.profile.profileQuestions = question2;
+      setPayload(payload);
     }
   }
+
+  const savePersonalQuest = () => {
+    console.log("saveee");
+    let PersonalQuest =
+      payload.attributes.personalInformation.personalQuestions;
+    PersonalQuest = [...PersonalQuest, { ...question, other: true }];
+    console.log("PersonalQuest", PersonalQuest);
+
+    setPayload({
+      ...payload.attributes.personalInformation.personalQuestions,
+      ...PersonalQuest,
+    });
+  };
 
   function ValidationImg() {
     if (!payload.attributes.coverImage) {
-      return "Please upload an image"
+      return "Please upload an image";
     }
-    return
+    return;
   }
 
-  const handleSubmit = async() => {
-    const validate = ValidationImg()
+  const handleSubmit = async () => {
+    const validate = ValidationImg();
     if (validate) {
       return message.error(validate);
     }
 
     setLoading(true);
     try {
-      // const res = await SubmitPayload(payload);
+      const res = await dataService.upadatePayload(payload);
       message.success("Information captured succesfully");
-      // console.log("res", res);
-      
+      console.log("res", res);
     } catch (err) {
-      message.error("Oops!, failed")
+      message.error("Oops!, failed");
     }
     setLoading(false);
-    };
+  };
 
   const [selectQmodal, setSelectQmodal] = useState(false);
   const [select, setSelect] = useState(false);
+  const [selectProfileQuest, setSelectProfileQuest] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-  console.log('selectedOption', selectedOption)
+  const [selectedProfileOption, setSelectedProfileOption] = useState("");
 
   //function that keeps track of the selected question values
   const handleChange = (selected) => {
     setSelectedOption(selected.value);
   };
 
-  const renderModal = () => {
-    switch (selectedOption) {
-      case "Paragraph":
-        return <ModalParagraph setSelectedOption={setSelectedOption} />;
-      case "Short answer":
-        return <ModalShortAnswer setSelectedOption={setSelectedOption} />;
-      case "Video question":
-        return (
-          <VideoBasedQuestionsModal setSelectedOption={setSelectedOption} />
-        );
-      case "Dropdown":
-        return <DropdownQuestionModal setSelectedOption={setSelectedOption} />;
-      default:
-        return null;
-    }
+  const handleChange2 = (selected) => {
+    setSelectedProfileOption(selected.value);
   };
+
+  // const renderModal = () => {
+  //   switch (selectedOption) {
+  //     case "Paragraph":
+  //       return <ModalParagraph setSelectedOption={setSelectedOption} />;
+  //     case "Short answer":
+  //       return <ModalShortAnswer setSelectedOption={setSelectedOption} />;
+  //     case "Video question":
+  //       return (
+  //         <VideoBasedQuestionsModal setSelectedOption={setSelectedOption} />
+  //       );
+  //     case "Dropdown":
+  //       return <DropdownQuestionModal setSelectedOption={setSelectedOption} />;
+  //     default:
+  //       return null;
+  //   }
+  // };
+
+  useEffect(() => {
+    //call the get method on page load.
+    getPayload();
+  }, [selectedImage]);
 
   return (
     <main>
@@ -169,6 +184,8 @@ function SignUp() {
               selectedImage={selectedImage}
               setSelectedImage={setSelectedImage}
               addQuestion={addQuestion}
+              payload={payload}
+              setPayload={setPayload}
             />
 
             <PersonalInformation
@@ -179,77 +196,23 @@ function SignUp() {
               select={select}
               addQuestion={addQuestion}
               handleChange={handleChange}
+              setSelectedOption={setSelectedOption}
+              setPayload={setPayload}
+              payload={payload}
+              setPersonalInfoOtherOption={setPersonalInfoOtherOption}
+              savePersonalQuest={savePersonalQuest}
             />
 
-            <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden">
-              <div className="bg-[#D0F7FA] p-3 py-4">
-              <span className="font-medium">Profile</span>
-              </div>
-              <div className="mt-8 px-6">
-                <div className="flex justify-between items-center">
-                  <label htmlFor="first_name" className="font-medium ">
-                    Education
-                  </label>
-                  <div className="flex items-center gap-8">
-                    <Checkbox>Mandatory</Checkbox>
-                    <label htmlFor="hide" className="text-gray-400">
-                      {" "}
-                      <Switch className="mr-4" />
-                      hide
-                    </label>
-                  </div>
-                </div>
-                <Input
-                  type="text"
-                  className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
-                />
-                <div className="flex justify-between items-center">
-                  <label htmlFor="first_name" className="font-medium ">
-                    Experience
-                  </label>
-                  <div className="flex items-center gap-8">
-                    <Checkbox>Mandatory</Checkbox>
-                    <label htmlFor="hide" className="text-gray-400">
-                      {" "}
-                      <Switch className="mr-4" />
-                      hide
-                    </label>
-                  </div>
-                </div>
-                <Input
-                  type="text"
-                  className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
-                />
-                <div className="flex justify-between items-center">
-                  <label htmlFor="first_name" className="font-medium ">
-                    Resume
-                  </label>
-                  <div className="flex items-center gap-8">
-                    <Checkbox checked>Mandatory</Checkbox>
-                    <label htmlFor="hide" className="text-gray-400">
-                      {" "}
-                      <Switch className="mr-4" />
-                      hide
-                    </label>
-                  </div>
-                </div>
-                <Input
-                  type="text"
-                  className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
-                />
-
-                <button
-                  onClick={() => {
-                    setSelectQmodal(true)
-                    addQuestion(3)
-                  }}
-                  className="flex items-center font-semibold ml-2 mb-5"
-                >
-                  <RiAddFill className="text-2xl font-medium" />
-                  Add a question
-                </button>
-              </div>
-            </div>
+            <Profile
+              attributes={attributes}
+              setSelectProfileQuest={setSelectProfileQuest}
+              selectProfileQuest={selectProfileQuest}
+              setSelectedProfileOption={setSelectedProfileOption}
+              handleChange2={handleChange2}
+              setPersonalInfoOtherOption={setPersonalInfoOtherOption2}
+              payload={payload}
+              addQuestion={addQuestion}
+            />
             <div className="my-10">
               <button
                 type="submit"
@@ -261,13 +224,13 @@ function SignUp() {
             </div>
           </section>
 
-          {selectQmodal && (
+          {/* {selectQmodal && (
             <SelectQuestionsModal
               handleChange={handleChange}
               setSelectQmodal={setSelectQmodal}
             />
           )}
-          {renderModal()}
+          {renderModal()} */}
         </main>
       </div>
     </main>
