@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../component/Sidebar";
 import UploadImage from "../component/upload/UploadImage";
 import PersonalInformation from "../component/information/PersonalInformation";
@@ -12,9 +12,8 @@ import ModalParagraph from "../component/questionsModals/ModalParagraph";
 import ModalShortAnswer from "../component/questionsModals/ModalShortAnswer";
 import VideoBasedQuestionsModal from "../component/questionsModals/VideoBasedQuestionsModal";
 import DropdownQuestionModal from "../component/questionsModals/DropdownQuestionModal";
-import axios from "axios";
-import { SubmitPayload } from "../services";
 import { v4 as uuidv4 } from 'uuid';
+import dataService from "../services/appData";
 
 function SignUp() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -34,10 +33,30 @@ function SignUp() {
     experience: "",
     resume: "",
   });
+  const [payload, setPayload] = useState({})
+  const {attributes} = payload
+  console.log('payload', payload)
+  console.log('attributes', attributes)
 
   function generateId() {
     return uuidv4();
   }
+
+  //api all to fetech the available payload record
+
+  const getPayload = async()=>{
+    try{
+      const response = await dataService.getPayload()
+      setPayload(response.data)
+    }catch(err){
+      //catch the error that occured in this process here.
+    }
+  }
+
+  useEffect(()=>{
+    //call the get method on page load.
+    getPayload();
+  },[])
 
   const [question, setQuestion] = useState({
     "id": "",
@@ -48,69 +67,6 @@ function SignUp() {
     "disqualify": false,
     "other": false
   })
-
-  const [payload, setPayload] = useState({
-    "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
-    "type": "applicationForm",
-    "attributes": {
-      "coverImage": "",
-      "personalInformation": {
-        "firstName": {
-          "internalUse": false,
-          "show": true
-        },
-        "lastName": {
-          "internalUse": false,
-          "show": true
-        },
-        "emailId": {
-          "internalUse": false,
-          "show": true
-        },
-        "phoneNumber": {
-          "internalUse": false,
-          "show": true
-        },
-        "nationality": {
-          "internalUse": false,
-          "show": true
-        },
-        "currentResidence": {
-          "internalUse": false,
-          "show": true
-        },
-        "idNumber": {
-          "internalUse": false,
-          "show": true
-        },
-        "dateOfBirth": {
-          "internalUse": false,
-          "show": true
-        },
-        "gender": {
-          "internalUse": false,
-          "show": true
-        },
-        "personalQuestions": []
-      },
-      "profile": {
-        "education": {
-          "mandatory": true,
-          "show": true
-        },
-        "experience": {
-          "mandatory": true,
-          "show": true
-        },
-        "resume": {
-          "mandatory": true,
-          "show": true
-        },
-        "profileQuestions": []
-      },
-      "customisedQuestions": []
-    }
-  });
 
   const handleChangeInput = (event) => {
     const { name, value } = event.target;
@@ -147,7 +103,6 @@ function SignUp() {
   }
 
   const handleSubmit = async() => {
-    console.log("Personal Data:", personalData);
     const validate = ValidationImg()
     if (validate) {
       return message.error(validate);
@@ -155,9 +110,9 @@ function SignUp() {
 
     setLoading(true);
     try {
-      const res = await SubmitPayload(payload);
+      // const res = await SubmitPayload(payload);
       message.success("Information captured succesfully");
-      console.log("res", res);
+      // console.log("res", res);
       
     } catch (err) {
       message.error("Oops!, failed")
@@ -166,8 +121,11 @@ function SignUp() {
     };
 
   const [selectQmodal, setSelectQmodal] = useState(false);
+  const [select, setSelect] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
+  console.log('selectedOption', selectedOption)
 
+  //function that keeps track of the selected question values
   const handleChange = (selected) => {
     setSelectedOption(selected.value);
   };
@@ -215,9 +173,12 @@ function SignUp() {
 
             <PersonalInformation
               personalData={personalData}
+              attributes={attributes}
               handleChangeInput={handleChangeInput}
-              setSelectQmodal={setSelectQmodal}
+              setSelect={setSelect}
+              select={select}
               addQuestion={addQuestion}
+              handleChange={handleChange}
             />
 
             <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden">

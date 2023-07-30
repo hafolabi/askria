@@ -1,60 +1,129 @@
 /** @format */
 
-import { Checkbox, Input, Switch } from "antd";
+import { Checkbox, Input, Select, Switch } from "antd";
 import React from "react";
 import { RiAddFill } from "react-icons/ri";
+import SelectQuestion from "../questions/SelectQuestions";
 
 function PersonalInformation({
   personalData,
   handleChangeInput,
-  setSelectQmodal,
-  addQuestion
+  setSelect,
+  addQuestion,
+  attributes,
+  select, 
+  handleChange
 }) {
   return (
     <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden">
       <div className="bg-[#D0F7FA] mb-4 p-3 py-4">
-      <span className="font-medium">Personal Information</span>
+        <span className="font-medium">Personal Information</span>
       </div>
 
       <div className="px-6 pb-5">
-        <label htmlFor="first_name" className="font-medium">
-          First Name
-        </label>
-        <br />
+        <div className="flex justify-between items-center">
+          <label htmlFor="first_name" className="font-medium ">
+            First Name
+          </label>
+          <div className="flex items-center gap-8">
+            <Checkbox
+              checked={attributes?.personalInformation?.firstName?.internalUse}
+            >
+              Internal
+            </Checkbox>
+            <label htmlFor="hide" className="text-gray-400">
+              {" "}
+              <Switch
+                className="mr-4"
+                checked={attributes?.personalInformation?.firstName?.show}
+              />
+              {attributes?.personalInformation?.firstName?.show
+                ? "show"
+                : "hide"}
+            </label>
+          </div>
+        </div>
         <Input
           name="firstName"
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
-          value={personalData.firstName}
+          value={""}
           onChange={handleChangeInput}
         />
-        <label htmlFor="first_name" className="font-medium ">
-          Email
-        </label>
-        <br />
+        <div className="flex justify-between items-center">
+          <label htmlFor="email" className="font-medium ">
+            Email
+          </label>
+          <div className="flex items-center gap-8">
+            <Checkbox
+              checked={attributes?.personalInformation?.emailId?.internalUse}
+            >
+              Internal
+            </Checkbox>
+            <label htmlFor="hide" className="text-gray-400">
+              {" "}
+              <Switch
+                className="mr-4"
+                checked={attributes?.personalInformation?.emailId?.show}
+              />
+              {attributes?.personalInformation?.emailId?.show ? "show" : "hide"}
+            </label>
+          </div>
+        </div>
         <Input
-          value={personalData.email}
+          value={""}
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
-        <label htmlFor="first_name" className="font-medium ">
-          Last Name
-        </label>
-        <br />
+
+        <div className="flex justify-between items-center">
+          <label htmlFor="last" className="font-medium ">
+            Last Name
+          </label>
+          <div className="flex items-center gap-8">
+            <Checkbox
+              checked={attributes?.personalInformation?.lastName?.internalUse}
+            >
+              Internal
+            </Checkbox>
+            <label htmlFor="hide" className="text-gray-400">
+              {" "}
+              <Switch
+                className="mr-4"
+                checked={attributes?.personalInformation?.lastName?.show}
+              />
+              {attributes?.personalInformation?.lastName?.show
+                ? "show"
+                : "hide"}
+            </label>
+          </div>
+        </div>
         <Input
-          value={personalData.lastName}
+          value={""}
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
           <label htmlFor="first_name" className="font-medium ">
-            Phone <span className="font-light">(without dial code)</span>
+            Phone{" "}
+            <span className="font-light text-[11px]">(without dial code)</span>
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox>Internal</Checkbox>
+            <Checkbox
+              checked={
+                attributes?.personalInformation?.phoneNumber?.internalUse
+              }
+            >
+              Internal
+            </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
-              <Switch className="mr-4" />
-              hide
+              <Switch
+                className="mr-4"
+                checked={attributes?.personalInformation?.phoneNumber?.show}
+              />
+              {attributes?.personalInformation?.phoneNumber?.show
+                ? "show"
+                : "hide"}
             </label>
           </div>
         </div>
@@ -66,87 +135,138 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-medium ">
+          <label htmlFor="nationlity" className="font-medium ">
             Nationality
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox>Internal</Checkbox>
+            <Checkbox
+              checked={
+                attributes?.personalInformation?.nationality?.internalUse
+              }
+            >
+              Internal
+            </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
-              <Switch className="mr-4" />
-              hide
+              <Switch
+                checked={attributes?.personalInformation?.nationality?.show}
+                className="mr-4"
+              />
+              {attributes?.personalInformation?.nationality?.show
+                ? "show"
+                : "hide"}
             </label>
           </div>
         </div>
         <Input
-          value={personalData.nationality}
+          value={""}
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-medium ">
+          <label htmlFor="current_residence" className="font-medium ">
             Current Residence
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox>Internal</Checkbox>
+            <Checkbox
+              checked={
+                attributes?.personalInformation?.currentResidence?.internalUse
+              }
+            >
+              Internal
+            </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
-              <Switch className="mr-4" />
-              hide
+              <Switch
+                className="mr-4"
+                checked={
+                  attributes?.personalInformation?.currentResidence?.show
+                }
+              />
+              {attributes?.personalInformation?.currentResidence?.show
+                ? "show"
+                : "hide"}
             </label>
           </div>
         </div>
         <Input
-          value={personalData.currentResidence}
+          value={""}
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-medium ">
+          <label htmlFor="id_number" className="font-medium ">
             ID Number
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox>Internal</Checkbox>
+            <Checkbox
+              checked={attributes?.personalInformation?.idNumber?.internalUse}
+            >
+              Internal
+            </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
-              <Switch className="mr-4" />
-              hide
+              <Switch
+                className="mr-4"
+                checked={attributes?.personalInformation?.idNumber?.show}
+              />
+              {attributes?.personalInformation?.idNumber?.show
+                ? "show"
+                : "hide"}
             </label>
           </div>
         </div>
         <Input
-          value={personalData.idNumber}
+          value={""}
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-medium ">
+          <label htmlFor="dob" className="font-medium ">
             Date of Birth
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox>Internal</Checkbox>
+            <Checkbox
+              checked={
+                attributes?.personalInformation?.dateOfBirth?.internalUse
+              }
+            >
+              Internal
+            </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
-              <Switch className="mr-4" />
-              hide
+              <Switch
+                className="mr-4"
+                checked={attributes?.personalInformation?.dateOfBirth?.show}
+              />
+              {attributes?.personalInformation?.dateOfBirth?.show
+                ? "show"
+                : "hide"}
             </label>
           </div>
         </div>
         <Input
-          value={personalData.dateOfBirth}
+          value={""}
           onChange={handleChangeInput}
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
         <div className="flex justify-between items-center">
-          <label htmlFor="first_name" className="font-medium ">
+          <label htmlFor="gender" className="font-medium ">
             Gender
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox>Internal</Checkbox>
+            <Checkbox
+              checked={attributes?.personalInformation?.gender?.internalUse}
+            >
+              Internal
+            </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
-              <Switch className="mr-4" />
-              hide
+              <Switch
+                className="mr-4"
+                checked={attributes?.personalInformation?.gender?.show}
+              />
+              {attributes?.personalInformation?.gender?.show ? "show" : "hide"}
             </label>
           </div>
         </div>
@@ -156,17 +276,19 @@ function PersonalInformation({
           className="outline-none border-white border-b-[#C4C4C4] rounded-none mb-4 w-full"
         />
       </div>
-
+      {!select ?
       <button
         className="flex items-center font-semibold ml-4 mb-5"
         onClick={() => {
-          addQuestion(2)
-          setSelectQmodal(true)
+          addQuestion(2);
+          setSelect(true);
         }}
       >
         <RiAddFill className="text-2xl font-medium" />
         Add a question
-      </button>
+      </button> :
+      <SelectQuestion select={select} setSelect={setSelect} handleChange={handleChange}/>
+      }
     </div>
   );
 }

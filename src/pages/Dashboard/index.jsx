@@ -11,7 +11,7 @@ const Dashboard = () => {
 		<main>
 			<div className='flex bg-[#F9FAFF]'>
 				<Sidebar />
-				<main className='flex-1 h-screen overflow-x-hidden overflow-y-scroll'>
+				<main className='flex-1	 overflow-x-hidden overflow-y-scroll'>
 					<Header />
 
 					<section className='flex gap-6 px-6'>
