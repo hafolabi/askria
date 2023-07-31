@@ -25,14 +25,6 @@ function SelectQuestion({
   const [check2, setCheck2] = useState(disqualify);
   const [selectedOption, setSelectedOption] = useState("");
 
-  const handleCheckbox = () => {
-    // const checked = e.target.checked;
-    if (!other) {
-      setCheck(false);
-    } else if (other) {
-      setCheck(true);
-    }
-  };
 
   //function that keeps track of the inserted choice question
   const handleUpdateChoice = (event, index) => {
@@ -100,10 +92,6 @@ function SelectQuestion({
     console.log("videoQuestion", inputText, vText, duration, sec);
   };
 
-
-  useEffect(() => {
-    handleCheckbox();
-  }, [other]);
 
   return (
     <div className="bg-white w-full mt-4 shadow rounded-lg overflow-hidden mb-0">

@@ -19,21 +19,12 @@ function CustomizationQuestion({
   refetch,
   handleSubmit,
 }) {
-  console.log("savePayload", payload);
+
   const { type, disqualify, id, other, maxChoice, question, choices } =
     customisedQuestion;
   const [check, setCheck] = useState(other);
   const [check2, setCheck2] = useState(disqualify);
   const [selectedOption, setSelectedOption] = useState("");
-
-  const handleCheckbox = () => {
-    // const checked = e.target.checked;
-    if (!other) {
-      setCheck(false);
-    } else if (other) {
-      setCheck(true);
-    }
-  };
 
   //function that keeps track of the inserted choice question
   const handleUpdateChoice = (event, index) => {
@@ -100,10 +91,6 @@ function CustomizationQuestion({
   const handleVideo = () => {
     console.log("videoQuestion", inputText, vText, duration, sec);
   };
-
-  useEffect(() => {
-    handleCheckbox();
-  }, [other]);
 
   return (
     <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden mb-4">

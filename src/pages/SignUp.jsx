@@ -36,6 +36,7 @@ function SignUp() {
     resume: "",
   });
   const [payload, setPayload] = useState({});
+  console.log('payload', payload)
   const { attributes } = payload;
 
   //generating the uuid for the new questions added
@@ -125,23 +126,6 @@ function SignUp() {
   const [selectCustomQuest, setSelectCustomQuest] = useState(false);
   const [selectProfileQuest, setSelectProfileQuest] = useState(false);
   const [refetch, setRefetch] = useState(false);
-
-  // const renderModal = () => {
-  //   switch (selectedOption) {
-  //     case "Paragraph":
-  //       return <ModalParagraph setSelectedOption={setSelectedOption} />;
-  //     case "Short answer":
-  //       return <ModalShortAnswer setSelectedOption={setSelectedOption} />;
-  //     case "Video question":
-  //       return (
-  //         <VideoBasedQuestionsModal setSelectedOption={setSelectedOption} />
-  //       );
-  //     case "Dropdown":
-  //       return <DropdownQuestionModal setSelectedOption={setSelectedOption} />;
-  //     default:
-  //       return null;
-  //   }
-  // };
 
   useEffect(() => {
     //call the get method on page load.
@@ -249,7 +233,7 @@ function SignUp() {
               ))
             )}
 
-            {/* <div className="my-10">
+            <div className="my-10">
               <button
                 type="submit"
                 className="bg-[#087B2F] px-4 py-2 text-white rounded-md"
@@ -257,16 +241,9 @@ function SignUp() {
               >
                 Submit
               </button>
-            </div> */}
+            </div>
           </section>
 
-          {/* {selectQmodal && (
-            <SelectQuestionsModal
-              handleChange={handleChange}
-              setSelectQmodal={setSelectQmodal}
-            />
-          )}
-          {renderModal()} */}
         </main>
       </div>
     </main>

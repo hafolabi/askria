@@ -6,7 +6,7 @@ const dataService = {};
 
 dataService.getPayload = () =>
     service({
-        url: '/898.0974431257172/programs/odio/application-form',
+        url: '/953.1808062984861/programs/dolor/application-form',
         method: 'get',
         headers : {
             'Content-Type': 'application/json',
@@ -15,7 +15,7 @@ dataService.getPayload = () =>
 
 dataService.upadatePayload = (payload) =>
     service({
-        url: '/647.7531040230652/programs/exercitationem/application-form',
+        url: '/180.52073301031265/programs/nisi/application-form',
         method: 'put',
         data: {data: payload},
         headers : {

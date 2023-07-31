@@ -26,14 +26,6 @@ function SelectQuestion({
   const [check2, setCheck2] = useState(disqualify);
   const [selectedOption, setSelectedOption] = useState("");
 
-  const handleCheckbox = () => {
-    // const checked = e.target.checked;
-    if (!other) {
-      setCheck(false);
-    } else if (other) {
-      setCheck(true);
-    }
-  };
 
   //function that keeps track of the inserted choice question
   const handleUpdateChoice = (event, index) => {
@@ -56,7 +48,7 @@ function SelectQuestion({
   };
 
   //Enable “Other” option functionality nd updates
-  const handleCheckbox2 = async (e, checkboxId) => {
+  const handleCheckbox = async (e, checkboxId) => {
     setCheck(!check);
     setPersonalInfoOtherOption(!check);
     var item1 = payload.attributes.personalInformation.personalQuestions[index];
@@ -103,10 +95,7 @@ function SelectQuestion({
     console.log("videoQuestion", inputText, vText, duration, sec);
   };
 
-  useEffect(() => {
-    handleCheckbox();
-  }, [other]);
-
+ 
   return (
     <div className="bg-white w-full mt-4 shadow rounded-lg overflow-hidden mb-0">
       <div className="bg-[#D0F7FA] p-3 py-4 flex justify-between">
@@ -214,7 +203,7 @@ function SelectQuestion({
               ))}
             </div>
 
-            <Checkbox checked={check} onChange={(e) => handleCheckbox2(e, id)}>
+            <Checkbox checked={check} onChange={(e) => handleCheckbox(e, id)}>
               Enable “Other” option{" "}
             </Checkbox>
           </>
