@@ -136,7 +136,7 @@ function SignUp() {
       <div className="flex bg-[#F9FAFF]">
         <Sidebar />
         <main className="flex-1 h-screen overflow-x-hidden overflow-y-scroll">
-          <nav className="mt-10 shadow zoom">
+          <nav className="mt-10 shadow fit">
             <div className="grid grid-cols-4  bg-white justify-around">
               <div className="flex justify-center py-10 border-r">
                 Program Details

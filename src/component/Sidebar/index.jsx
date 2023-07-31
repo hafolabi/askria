@@ -68,7 +68,7 @@ const Sidebar = () => {
     ];
   return (
     <nav className="block z-50 w-20 transition-all duration-300 bg-white h-screen overflow-y-scroll">
-        <div className="flex flex-col justify-between h-full zoom">
+        <div className="flex flex-col justify-between h-full fit">
             <div className="px-2 py-8">
             { !window.location.pathname.includes('dashboard') ? "" :
             <Link className="flex px-1 text-black" to="/dashboard">
