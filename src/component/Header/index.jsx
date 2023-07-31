@@ -57,7 +57,7 @@ const items = [
 ];
 
   return (
-    <main className="bg-[#F9FAFF] sticky top-0 z-[10]">
+    <main className="bg-[#F9FAFF] sticky top-0 z-[10] zoom">
         <div className=" mx-auto py-2">
         <div className="flex justify-between w-full mt-4">
            
