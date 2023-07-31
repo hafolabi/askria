@@ -29,14 +29,16 @@ function Profile({
             Education
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox checked={attributes?.profile?.education?.mandatory}>
+            <Checkbox 
+              // checked={attributes?.profile?.education?.mandatory}
+              >
               Mandatory
             </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.profile?.education?.show}
+                // checked={attributes?.profile?.education?.show}
               />
               {attributes?.profile?.education?.show ? "show" : "hide"}
             </label>

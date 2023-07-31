@@ -35,7 +35,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={attributes?.personalInformation?.firstName?.internalUse}
+              // checked={attributes?.personalInformation?.firstName?.internalUse}
             >
               Internal
             </Checkbox>
@@ -43,7 +43,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.personalInformation?.firstName?.show}
+                // checked={attributes?.personalInformation?.firstName?.show}
               />
               {attributes?.personalInformation?.firstName?.show
                 ? "show"
