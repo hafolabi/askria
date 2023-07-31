@@ -233,7 +233,7 @@ function SignUp() {
               ))
             )}
 
-            <div className="my-10">
+            {/* <div className="my-10">
               <button
                 type="submit"
                 className="bg-[#087B2F] px-4 py-2 text-white rounded-md"
@@ -241,7 +241,7 @@ function SignUp() {
               >
                 Submit
               </button>
-            </div>
+            </div> */}
           </section>
 
         </main>
