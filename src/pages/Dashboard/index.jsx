@@ -205,44 +205,6 @@ const Dashboard = () => {
 									</div>
 								</div>
 							</div>
-
-							<div className='flex gap-4 py-6 border-b items-center'>
-								<Checkbox></Checkbox>
-								<div className='h-20 w-20 rounded-full flex text-2xl font-bold justify-center items-center bg-[#EDF4FF]'>
-									AS
-								</div>
-								<div className=''>
-									<h3 className='font-bold text-sm mb-3'>
-										Aaliyah Sanderson
-									</h3>
-									<p className='font-medium text-xs'>
-										Riyadh, Saudi Arabia
-									</p>
-									<p className='font-light text-[10px]'>
-										Bachelor - Cambridge University (2023 -
-										2023)
-									</p>
-									<span className='text-[#1D4ED8] text-[8px] mr-3'>
-										#top_candidate
-									</span>
-									<span className='text-[#1D4ED8] text-[8px]'>
-										#top_candidate
-									</span>
-									<div className='mt-2'>
-										<span className='bg-[#F3FAFC] text-[#037092] text-[8px] mr-2 py-1 px-4 rounded-2xl'>
-											New York
-										</span>
-										<span className='bg-[#F3FAFC] text-[#037092] text-[8px] mr-2 py-1 px-4 rounded-2xl'>
-											Marketing
-										</span>
-										<span className='bg-[#F3FAFC] text-[#037092] text-[8px] mr-2 py-1 px-4 rounded-2xl'>
-											London
-										</span>
-									</div>
-								</div>
-							</div>
-
-							
 						</div>
 					</section>
 				</main>

@@ -10,10 +10,13 @@ function Profile({
   addQuestion,
   setSelectProfileQuest,
   selectProfileQuest,
-  handleChange2,
   setSelectedProfileOption,
   setPersonalInfoOtherOption,
-  payload
+  setPayload,
+  payload,
+  setRefetch,
+  refetch,
+  handleSubmit
 }) {
   return (
     <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden">
@@ -90,15 +93,18 @@ function Profile({
       {!selectProfileQuest ?  
          <>
         {attributes?.profile?.profileQuestions?.length > 0 &&
-          attributes?.profile?.profileQuestions.map((profileQuestions) => (
-            <div className="mb-7 p-4">
+          attributes?.profile?.profileQuestions.map((profileQuestion, i) => (
+            <div className="mb-7">
               <SelectQuestion
                 setSelect={setSelectProfileQuest}
-                handleChange={handleChange2}
-                profileQuestions={profileQuestions}
-                setSelectedOption={setSelectedProfileOption}
+                profileQuestion={profileQuestion}
                 setPersonalInfoOtherOption={setPersonalInfoOtherOption}
                 payload={payload}
+                setPayload={setPayload}
+                index={i}
+                setRefetch={setRefetch}
+               refetch={refetch}
+               handleSubmit={handleSubmit}
               />
             </div>
           ))}
@@ -115,15 +121,18 @@ function Profile({
         </button>
         </> : 
         attributes?.profile?.profileQuestions?.length > 0 &&
-        attributes?.profile?.profileQuestions.map((profileQuestions) => (
-          <div className="mb-7 p-4">
+        attributes?.profile?.profileQuestions.map((profileQuestion, i) => (
+          <div className="mb-7">
             <SelectQuestion
               setSelect={setSelectProfileQuest}
-              handleChange={handleChange2}
-              profileQuestions={profileQuestions}
-              setSelectedOption={setSelectedProfileOption}
+              profileQuestion={profileQuestion}
               setPersonalInfoOtherOption={setPersonalInfoOtherOption}
               payload={payload}
+              setPayload={setPayload}
+              index={i}
+              setRefetch={setRefetch}
+               refetch={refetch}
+               handleSubmit={handleSubmit}
             />
           </div>
         ))

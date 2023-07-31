@@ -6,9 +6,9 @@ import {
 import { Checkbox, Input, Select } from "antd";
 import React, { useEffect, useState } from "react";
 
-function SelectQuestion({
+function CustomizationQuestion({
   setSelect,
-  profileQuestion,
+  customisedQuestion,
   setPersonalInfoOtherOption,
   payload,
   setPayload,
@@ -17,8 +17,8 @@ function SelectQuestion({
   refetch,
   handleSubmit
 }) {
-  const { type, disqualify, id, other, maxChoice, question, choices } =
-    profileQuestion;
+    console.log('savePayload', payload)
+  const { type, disqualify, id, other, maxChoice, question, choices } = customisedQuestion;
   const [check, setCheck] = useState(other);
   const [check2, setCheck2] = useState(disqualify);
   const [selectedOption, setSelectedOption] = useState("");
@@ -32,21 +32,21 @@ function SelectQuestion({
     }
   };
 
-  //function that keeps track of the inserted choice question
-  const handleUpdateChoice = (event, index) => {
-    var item1 = payload?.attributes?.profile?.profileQuestions[index];
-    item1.choices = [event.target.value];
-    var item2 = payload?.attributes?.profile?.profileQuestions;
+  //function that keeps track of the inserted choice question 
+  const handleUpdateChoice = (event, index)=>{
+    var item1 = payload?.attributes?.customisedQuestions[index];
+    item1.choices = [event.target.value]
+    var item2 = payload?.attributes?.customisedQuestions;
     item2[index] = item1;
     setPayload({ ...payload });
-  };
+  }
 
-  //function that keeps track of the selected question values
+ //function that keeps track of the selected question values
   const handleChange = (selected) => {
     setSelectedOption(selected.value);
-    var item1 = payload.attributes.profile.profileQuestions[index];
+    var item1 = payload.attributes.customisedQuestions[index];
     item1.type = selected.value;
-    var item2 = payload.attributes.profile.profileQuestions;
+    var item2 = payload.attributes.customisedQuestions;
     item2[index] = item1;
     setPayload({ ...payload });
   };
@@ -55,44 +55,38 @@ function SelectQuestion({
   const handleMaxChioiceCheckbox = async (e, checkboxId) => {
     setCheck(!check);
     setPersonalInfoOtherOption(!check);
-    var item1 = payload.attributes.profile.profileQuestions[index];
+    var item1 = payload.attributes.customisedQuestions[index];
     item1.other = !check;
-    var item2 = payload.attributes.profile.profileQuestions;
+    var item2 = payload.attributes.customisedQuestions;
     item2[index] = item1;
     setPayload({ ...payload });
   };
 
-  //disqualify option functionality nd updates
-  const handleDisqualifyCheckbox = async (e, checkboxId) => {
+   //disqualify option functionality nd updates
+   const handleDisqualifyCheckbox = async (e, checkboxId) => {
     setCheck2(!check2);
     setPersonalInfoOtherOption(!check2);
-    var item1 = payload.attributes.profile.profileQuestions[index];
+    var item1 = payload.attributes.customisedQuestions[index];
     item1.disqualify = !check2;
-    var item2 = payload.attributes.profile.profileQuestions;
+    var item2 = payload.attributes.customisedQuestions;
     item2[index] = item1;
     setPayload({ ...payload });
   };
 
   const removeAddedQuest = (questionId) => {
-    setRefetch(!refetch);
-    const filter = payload.attributes.profile.profileQuestions.filter(
-      (item) => item.id !== questionId
-    );
-    setPayload([
-      ...payload.attributes.profile.profileQuestions.filter(
-        (item) => item.id !== questionId
-      ),
-    ]);
-  };
+    setRefetch(!refetch)
+     const filter = payload.attributes.customisedQuestions.filter(item=>item.id !== questionId)
+     setPayload([ ...payload.attributes.customisedQuestions.filter(item=>item.id !== questionId)]);
+};
 
   useEffect(() => {
     handleCheckbox();
   }, [other]);
-
+  
   return (
-    <div className="bg-white w-full mt-4 shadow rounded-lg overflow-hidden mb-0">
+    <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden mb-4">
       <div className="bg-[#D0F7FA] p-3 py-4 flex justify-between">
-        <b>Questions</b>
+        <b>Customization Questions</b>
         {/* <b className="cursor-pointer" onClick={() => setSelect(false)}>
           x
         </b> */}
@@ -149,9 +143,10 @@ function SelectQuestion({
             placeholder="Type here"
             className=" my-2"
             onChange={(e) => {
-              var item1 = payload.attributes.profile.profileQuestions[index];
+              var item1 =
+                payload.attributes.customisedQuestions[index];
               item1.question = e.target.value;
-              var item2 = payload.attributes.profile.profileQuestions;
+              var item2 = payload.attributes.customisedQuestions;
               item2[index] = item1;
               setPayload({ ...payload });
             }}
@@ -167,68 +162,59 @@ function SelectQuestion({
           </Checkbox>
         )}
 
-        {selectedOption === "Paragraph" ? (
-          ""
-        ) : (
-          <>
-            <div className="mt-4">
-              <label className="font-medium text-sm mx-10">Choice</label>
-              {profileQuestion?.choices?.map((item, i) => (
-                <div className="flex items-center mx-4">
-                  <UnorderedListOutlined className="text-md font-bold" />
-                  <Input
-                    defaultValue={item}
-                    placeholder="Type here"
-                    className=" my-2 mx-2"
-                    onChange={(e) => {
-                      handleUpdateChoice(e, i);
-                    }}
-                  />
-                  <PlusOutlined className="text-md font-bold" />
-                </div>
-              ))}
-            </div>
-            <Checkbox
-              checked={check}
-              onChange={(e) => handleMaxChioiceCheckbox(e, id)}
-            >
-              Enable “Other” option{" "}
-            </Checkbox>
-            <div className="mt-5">
-              <label className="font-medium text-sm">Max choice allowed</label>
+        {selectedOption === "Paragraph" ? '' : 
+        <>
+          <div className="mt-4">
+          <label className="font-medium text-sm mx-10">Choice</label>
+          {customisedQuestion?.choices?.map((item, i) => (
+            <div className="flex items-center mx-4">
+              <UnorderedListOutlined className="text-md font-bold" />
               <Input
-                defaultValue={maxChoice}
+                defaultValue={item}
                 placeholder="Type here"
-                className=" my-2"
-                type="number"
-                min={1}
-                onChange={(e) => {
-                  var item1 =
-                    payload.attributes.profile.profileQuestions[index];
-                  item1.maxChoice = +e.target.value;
-                  var item2 = payload.attributes.profile.profileQuestions;
-                  item2[index] = item1;
-                  setPayload({ ...payload });
-                }}
+                className=" my-2 mx-2"
+                onChange={(e) => {handleUpdateChoice(e, i)}}
               />
+              <PlusOutlined className="text-md font-bold" />
             </div>
-          </>
-        )}
+          ))}
+        </div>
+        <Checkbox checked={check} onChange={(e) => handleMaxChioiceCheckbox(e, id)}>
+          Enable “Other” option{" "}
+        </Checkbox>
+        <div className="mt-5">
+          <label className="font-medium text-sm">Max choice allowed</label>
+          <Input
+            defaultValue={maxChoice}
+            placeholder="Type here"
+            className=" my-2"
+            type="number"
+            min={1}
+            onChange={(e) => {
+              var item1 =
+                payload.attributes.customisedQuestions[index];
+              item1.maxChoice = +e.target.value;
+              var item2 =
+                payload.attributes.customisedQuestions;
+              item2[index] = item1;
+              setPayload({ ...payload });
+            }}
+          />
+        </div>
+        </>}
         <div className="flex justify-between items-center mt-3">
-          {!profileQuestion?.type && (
-            <button
+         
+           {!customisedQuestion?.type &&  <button
               className="text-[#A80000] flex items-center p-3"
-              onClick={() => {
-                removeAddedQuest(profileQuestion.id);
-                setSelect(false);
+              onClick={() => {removeAddedQuest(customisedQuestion.id)
+                setSelect(false)
               }}
             >
               <CloseOutlined className="font-bold text-md  mr-2" />
               Delete question
-            </button>
-          )}
-          <button
-            className="bg-[#087B2F] px-4 py-2 text-white rounded-md"
+            </button>}
+          
+          <button className="bg-[#087B2F] px-4 py-2 text-white rounded-md"
             onClick={()=>handleSubmit()}
           >
             save
@@ -239,4 +225,4 @@ function SelectQuestion({
   );
 }
 
-export default SelectQuestion;
+export default CustomizationQuestion;

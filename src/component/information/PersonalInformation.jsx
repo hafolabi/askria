@@ -12,13 +12,15 @@ function PersonalInformation({
   addQuestion,
   attributes,
   select,
-  handleChange,
   setSelectedOption,
   setPayload,
   payload,
   setPersonalInfoOtherOption,
   personalInfoOtherOption,
-  savePersonalQuest
+  savePersonalQuest,
+  setRefetch,
+  refetch,
+  handleSubmit
 }) {
   return (
     <div className="bg-white w-2/5 mt-4 shadow rounded-lg overflow-hidden">
@@ -285,18 +287,20 @@ function PersonalInformation({
       {!select ?  
       <>
       {attributes?.personalInformation?.personalQuestions?.length > 0 &&
-       attributes?.personalInformation?.personalQuestions.map(personalQuestion=>(
+       attributes?.personalInformation?.personalQuestions.map((personalQuestion, i)=>(
         <div className="mb-7 p-4">
           <SelectQuestion
             setSelect={setSelect}
-            handleChange={handleChange}
             personalQuestion={personalQuestion}
-            setSelectedOption={setSelectedOption}
             setPayload={setPayload}
             payload={payload}
             setPersonalInfoOtherOption={setPersonalInfoOtherOption}
             personalInfoOtherOption={personalInfoOtherOption}
             savePersonalQuest={savePersonalQuest}
+            index={i}
+            setRefetch={setRefetch}
+            refetch={refetch}
+            handleSubmit={handleSubmit}
           />
           </div>
        )) 
@@ -314,17 +318,19 @@ function PersonalInformation({
         </>
         :
         attributes?.personalInformation?.personalQuestions?.length > 0 &&
-          attributes?.personalInformation?.personalQuestions.map(personalQuestion=>(
+          attributes?.personalInformation?.personalQuestions.map((personalQuestion, i)=>(
            <div className="mb-7 p-4">
              <SelectQuestion
                setSelect={setSelect}
-               handleChange={handleChange}
                personalQuestion={personalQuestion}
-               setSelectedOption={setSelectedOption}
                setPayload={setPayload}
                payload={payload}
                setPersonalInfoOtherOption={setPersonalInfoOtherOption}
                savePersonalQuest={savePersonalQuest}
+               index={i}
+               setRefetch={setRefetch}
+               refetch={refetch}
+               handleSubmit={handleSubmit}
              />
              </div>
           )) 

@@ -15,6 +15,7 @@ import DropdownQuestionModal from "../component/questionsModals/DropdownQuestion
 import { v4 as uuidv4 } from "uuid";
 import dataService from "../services/appData";
 import Profile from "../component/information/Profile";
+import CustomizationQuestion from "../component/information/CustomizationQuestions";
 
 function SignUp() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -36,9 +37,8 @@ function SignUp() {
   });
   const [payload, setPayload] = useState({});
   const { attributes } = payload;
-  console.log("payload", payload);
-  console.log("attributes", attributes);
 
+  //generating the uuid for the new questions added
   function generateId() {
     return uuidv4();
   }
@@ -50,12 +50,13 @@ function SignUp() {
       const response = await dataService.getPayload();
       setPayload(response.data);
     } catch (err) {
+      message.error("Oops!, failed to fetch payload");
       //catch the error that occured in this process here.
     }
   };
   const [personalInfoOtherOption, setPersonalInfoOtherOption] = useState(false);
-  const [personalInfoOtherOption2, setPersonalInfoOtherOption2] = useState(false);
-  console.log("personalInfoOtherOption", personalInfoOtherOption);
+  const [personalInfoOtherOption2, setPersonalInfoOtherOption2] =
+    useState(false);
   const [question, setQuestion] = useState({
     id: "",
     type: "",
@@ -85,21 +86,15 @@ function SignUp() {
       question2 = [...question2, { ...question, id: generateId() }];
       payload.attributes.profile.profileQuestions = question2;
       setPayload(payload);
+    }else if (addedQuestions === "customisedQuestions") {
+      let question3 = payload.attributes.customisedQuestions;
+      question3 = [...question3, { ...question, id: generateId() }];
+      payload.attributes.customisedQuestions = question3;
+      setPayload(payload);
     }
   }
 
-  const savePersonalQuest = () => {
-    console.log("saveee");
-    let PersonalQuest =
-      payload.attributes.personalInformation.personalQuestions;
-    PersonalQuest = [...PersonalQuest, { ...question, other: true }];
-    console.log("PersonalQuest", PersonalQuest);
-
-    setPayload({
-      ...payload.attributes.personalInformation.personalQuestions,
-      ...PersonalQuest,
-    });
-  };
+  const savePersonalQuest = (id) => {};
 
   function ValidationImg() {
     if (!payload.attributes.coverImage) {
@@ -109,10 +104,10 @@ function SignUp() {
   }
 
   const handleSubmit = async () => {
-    const validate = ValidationImg();
-    if (validate) {
-      return message.error(validate);
-    }
+    // const validate = ValidationImg();
+    // if (validate) {
+    //   return message.error(validate);
+    // }
 
     setLoading(true);
     try {
@@ -125,20 +120,11 @@ function SignUp() {
     setLoading(false);
   };
 
-  const [selectQmodal, setSelectQmodal] = useState(false);
+  // const [selectQmodal, setSelectQmodal] = useState(false);
   const [select, setSelect] = useState(false);
+  const [selectCustomQuest, setSelectCustomQuest] = useState(false);
   const [selectProfileQuest, setSelectProfileQuest] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [selectedProfileOption, setSelectedProfileOption] = useState("");
-
-  //function that keeps track of the selected question values
-  const handleChange = (selected) => {
-    setSelectedOption(selected.value);
-  };
-
-  const handleChange2 = (selected) => {
-    setSelectedProfileOption(selected.value);
-  };
+  const [refetch, setRefetch] = useState(false);
 
   // const renderModal = () => {
   //   switch (selectedOption) {
@@ -160,7 +146,7 @@ function SignUp() {
   useEffect(() => {
     //call the get method on page load.
     getPayload();
-  }, [selectedImage]);
+  }, [selectedImage, refetch]);
 
   return (
     <main>
@@ -190,30 +176,80 @@ function SignUp() {
 
             <PersonalInformation
               personalData={personalData}
-              attributes={attributes}
+              attributes={payload?.attributes}
               handleChangeInput={handleChangeInput}
               setSelect={setSelect}
               select={select}
               addQuestion={addQuestion}
-              handleChange={handleChange}
-              setSelectedOption={setSelectedOption}
               setPayload={setPayload}
               payload={payload}
               setPersonalInfoOtherOption={setPersonalInfoOtherOption}
               savePersonalQuest={savePersonalQuest}
+              setRefetch={setRefetch}
+              refetch={refetch}
+              handleSubmit={handleSubmit}
             />
 
             <Profile
               attributes={attributes}
               setSelectProfileQuest={setSelectProfileQuest}
               selectProfileQuest={selectProfileQuest}
-              setSelectedProfileOption={setSelectedProfileOption}
-              handleChange2={handleChange2}
               setPersonalInfoOtherOption={setPersonalInfoOtherOption2}
               payload={payload}
+              setPayload={setPayload}
               addQuestion={addQuestion}
+              setRefetch={setRefetch}
+              handleSubmit={handleSubmit}
+              refetch={refetch}
             />
-            <div className="my-10">
+
+            {!selectCustomQuest ? (
+              <>
+                {attributes?.customisedQuestions?.length > 0 &&
+                  attributes?.customisedQuestions.map(
+                    (customisedQuestion, i) => (
+                      <CustomizationQuestion
+                        setSelect={setSelectCustomQuest}
+                        customisedQuestion={customisedQuestion}
+                        setPersonalInfoOtherOption={setPersonalInfoOtherOption}
+                        payload={payload}
+                        setPayload={setPayload}
+                        setRefetch={setRefetch}
+                        refetch={refetch}
+                        handleSubmit={handleSubmit}
+                        index={i}
+                      />
+                    )
+                  )}
+                <button
+                  onClick={() => {
+                    setSelectCustomQuest(true);
+                    addQuestion("customisedQuestions");
+                  }}
+                  className="flex items-center font-semibold ml-2 mb-5"
+                >
+                  <RiAddFill className="text-2xl font-medium" />
+                  Add a question
+                </button>
+              </>
+            ) : (
+              attributes?.customisedQuestions?.length > 0 &&
+              attributes?.customisedQuestions.map((customisedQuestion, i) => (
+                <CustomizationQuestion
+                  setSelect={setSelectCustomQuest}
+                  customisedQuestion={customisedQuestion}
+                  setPersonalInfoOtherOption={setPersonalInfoOtherOption}
+                  payload={payload}
+                  setPayload={setPayload}
+                  setRefetch={setRefetch}
+                  refetch={refetch}
+                  handleSubmit={handleSubmit}
+                  index={i}
+                />
+              ))
+            )}
+
+            {/* <div className="my-10">
               <button
                 type="submit"
                 className="bg-[#087B2F] px-4 py-2 text-white rounded-md"
@@ -221,7 +257,7 @@ function SignUp() {
               >
                 Submit
               </button>
-            </div>
+            </div> */}
           </section>
 
           {/* {selectQmodal && (
