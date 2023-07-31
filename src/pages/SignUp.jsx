@@ -36,7 +36,6 @@ function SignUp() {
     resume: "",
   });
   const [payload, setPayload] = useState({});
-  console.log('payload', payload)
   const { attributes } = payload;
 
   //generating the uuid for the new questions added
@@ -138,7 +137,7 @@ function SignUp() {
         <Sidebar />
         <main className="flex-1 h-screen overflow-x-hidden overflow-y-scroll">
           <nav className="mt-10 shadow zoom">
-            <div className="grid grid-cols-4  bg-white    justify-around">
+            <div className="grid grid-cols-4  bg-white justify-around">
               <div className="flex justify-center py-10 border-r">
                 Program Details
               </div>
@@ -149,7 +148,7 @@ function SignUp() {
               <div className="flex justify-center py-10 ">Preview</div>
             </div>
           </nav>
-          <section className="p-5 zoom">
+          <section className="p-5">
             <UploadImage
               selectedImage={selectedImage}
               setSelectedImage={setSelectedImage}

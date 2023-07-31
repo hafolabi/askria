@@ -30,7 +30,7 @@ function Profile({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox 
-              // checked={attributes?.profile?.education?.mandatory}
+              defaultChecked={attributes?.profile?.education?.mandatory}
               >
               Mandatory
             </Checkbox>
@@ -38,7 +38,7 @@ function Profile({
               {" "}
               <Switch
                 className="mr-4"
-                // checked={attributes?.profile?.education?.show}
+                defaultChecked={{value: attributes?.profile?.education?.show}}
               />
               {attributes?.profile?.education?.show ? "show" : "hide"}
             </label>
@@ -53,14 +53,14 @@ function Profile({
             Experience
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox checked={attributes?.profile?.experience?.mandatory}>
+            <Checkbox defaultChecked={attributes?.profile?.experience?.mandatory}>
               Mandatory
             </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.profile?.experience?.show}
+                defaultChecked={{value: attributes?.profile?.experience?.show}}
               />
               {attributes?.profile?.experience?.show ? "show" : "hide"}
             </label>
@@ -75,14 +75,14 @@ function Profile({
             Resume
           </label>
           <div className="flex items-center gap-8">
-            <Checkbox checked={attributes?.profile?.resume?.mandatory}>
+            <Checkbox defaultChecked={attributes?.profile?.resume?.mandatory}>
               Mandatory
             </Checkbox>
             <label htmlFor="hide" className="text-gray-400">
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.profile?.resume?.show}
+                defaultChecked={{value: attributes?.profile?.resume?.show}}
               />
               {attributes?.profile?.resume?.show ? "show" : "hide"}
             </label>

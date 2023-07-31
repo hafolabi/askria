@@ -18,7 +18,7 @@ import Sideprofile from '../../assets/sideprofile.png'
 const Sidebar = () => {
     const routes = [
         {
-            path: '/dashboard',
+            path: '/',
             icon: Frame1,
         },
         {
@@ -58,11 +58,11 @@ const Sidebar = () => {
             icon: Home1,
         },
         {
-            path: '/',
+            path: '/dashboard',
             icon: Home2,
         },
         {
-            path: '/dashboard',
+            path: '/',
             icon: Home3,
         },
     ];
@@ -70,14 +70,14 @@ const Sidebar = () => {
     <nav className="block z-50 w-20 transition-all duration-300 bg-white h-screen overflow-y-scroll">
         <div className="flex flex-col justify-between h-full zoom">
             <div className="px-2 py-8">
-            { window.location.pathname.includes('dashboard') ? "" :
+            { !window.location.pathname.includes('dashboard') ? "" :
             <Link className="flex px-1 text-black" to="/dashboard">
                 <img src={Logo} alt="logo" />
             </Link>
             }
             <div className="space-y-2 text-gray-400">
                 <div className="pt-8">
-                   { window.location.pathname.includes('dashboard') ?
+                   { !window.location.pathname.includes('dashboard') ?
                     routesII.map((route, index) => (
                         <Link
                             to={route.path}
@@ -102,7 +102,7 @@ const Sidebar = () => {
                     ))}
                     </div>
                 </div>
-                { window.location.pathname.includes('dashboard') ? "" :
+                { !window.location.pathname.includes('dashboard') ? "" :
                 <>
                 <div className="pt-12">
                 <img src={Settings} alt={'settings'} />

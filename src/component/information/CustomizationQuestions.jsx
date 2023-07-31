@@ -325,6 +325,7 @@ function CustomizationQuestion({
             save
           </button>
         </div>
+       {selectedOption === "Video question" && <span className='text-[#A220CF] text-xs font-semibold mt-8 '>+ Add video interview questions</span>}
       </div>
     </div>
   );

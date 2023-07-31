@@ -100,9 +100,6 @@ function SelectQuestion({
     <div className="bg-white w-full mt-4 shadow rounded-lg overflow-hidden mb-0">
       <div className="bg-[#D0F7FA] p-3 py-4 flex justify-between">
         <b>Questions</b>
-        {/* <b className="cursor-pointer" onClick={() => setSelect(false)}>
-          x
-        </b> */}
       </div>
       <div className="px-6 py-4">
         <label className="font-medium text-sm" htmlFor="">
@@ -332,6 +329,7 @@ function SelectQuestion({
             save
           </button>
         </div>
+        {selectedOption === "Video question" && <p className='text-[#A220CF] text-xs mt-8 font-semibold '>+ Add video interview questions</p>}
       </div>
     </div>
   );

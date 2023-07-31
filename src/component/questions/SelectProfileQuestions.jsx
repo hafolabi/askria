@@ -323,6 +323,7 @@ function SelectQuestion({
             save
           </button>
         </div>
+       { selectedOption === "Video question" && <p className='text-[#A220CF] text-xs mt-8 font-semibold '>+ Add video interview questions</p>}
       </div>
     </div>
   );

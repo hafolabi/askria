@@ -35,7 +35,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              // checked={attributes?.personalInformation?.firstName?.internalUse}
+              defaultChecked ={ attributes?.personalInformation?.firstName?.internalUse}
             >
               Internal
             </Checkbox>
@@ -43,7 +43,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                // checked={attributes?.personalInformation?.firstName?.show}
+                defaultChecked ={{value: attributes?.personalInformation?.firstName?.show}}
               />
               {attributes?.personalInformation?.firstName?.show
                 ? "show"
@@ -63,7 +63,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={attributes?.personalInformation?.emailId?.internalUse}
+              defaultChecked={ attributes?.personalInformation?.emailId?.internalUse}
             >
               Internal
             </Checkbox>
@@ -71,7 +71,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.personalInformation?.emailId?.show}
+                defaultChecked={{value: attributes?.personalInformation?.emailId?.show}}
               />
               {attributes?.personalInformation?.emailId?.show ? "show" : "hide"}
             </label>
@@ -89,7 +89,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={attributes?.personalInformation?.lastName?.internalUse}
+              defaultChecked ={ attributes?.personalInformation?.lastName?.internalUse}
             >
               Internal
             </Checkbox>
@@ -97,7 +97,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.personalInformation?.lastName?.show}
+                defaultChecked ={{value: attributes?.personalInformation?.lastName?.show}}
               />
               {attributes?.personalInformation?.lastName?.show
                 ? "show"
@@ -117,7 +117,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={
+              defaultChecked ={
                 attributes?.personalInformation?.phoneNumber?.internalUse
               }
             >
@@ -127,7 +127,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.personalInformation?.phoneNumber?.show}
+                defaultChecked ={{value: attributes?.personalInformation?.phoneNumber?.show}}
               />
               {attributes?.personalInformation?.phoneNumber?.show
                 ? "show"
@@ -148,7 +148,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={
+              defaultChecked ={
                 attributes?.personalInformation?.nationality?.internalUse
               }
             >
@@ -157,7 +157,7 @@ function PersonalInformation({
             <label htmlFor="hide" className="text-gray-400">
               {" "}
               <Switch
-                checked={attributes?.personalInformation?.nationality?.show}
+                defaultChecked ={{value: attributes?.personalInformation?.nationality?.show}}
                 className="mr-4"
               />
               {attributes?.personalInformation?.nationality?.show
@@ -177,8 +177,8 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={
-                attributes?.personalInformation?.currentResidence?.internalUse
+              defaultChecked ={
+                 attributes?.personalInformation?.currentResidence?.internalUse
               }
             >
               Internal
@@ -187,8 +187,8 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={
-                  attributes?.personalInformation?.currentResidence?.show
+                defaultChecked ={
+                  {value: attributes?.personalInformation?.currentResidence?.show}
                 }
               />
               {attributes?.personalInformation?.currentResidence?.show
@@ -208,7 +208,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={attributes?.personalInformation?.idNumber?.internalUse}
+              defaultChecked ={attributes?.personalInformation?.idNumber?.internalUse}
             >
               Internal
             </Checkbox>
@@ -216,7 +216,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.personalInformation?.idNumber?.show}
+                defaultChecked ={{value: attributes?.personalInformation?.idNumber?.show}}
               />
               {attributes?.personalInformation?.idNumber?.show
                 ? "show"
@@ -235,7 +235,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={
+              defaultChecked ={
                 attributes?.personalInformation?.dateOfBirth?.internalUse
               }
             >
@@ -245,7 +245,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.personalInformation?.dateOfBirth?.show}
+                defaultChecked ={{value: attributes?.personalInformation?.dateOfBirth?.show}}
               />
               {attributes?.personalInformation?.dateOfBirth?.show
                 ? "show"
@@ -264,7 +264,7 @@ function PersonalInformation({
           </label>
           <div className="flex items-center gap-8">
             <Checkbox
-              checked={attributes?.personalInformation?.gender?.internalUse}
+              defaultChecked ={ attributes?.personalInformation?.gender?.internalUse  }
             >
               Internal
             </Checkbox>
@@ -272,7 +272,7 @@ function PersonalInformation({
               {" "}
               <Switch
                 className="mr-4"
-                checked={attributes?.personalInformation?.gender?.show}
+                defaultChecked ={{value: attributes?.personalInformation?.gender?.show}}
               />
               {attributes?.personalInformation?.gender?.show ? "show" : "hide"}
             </label>
