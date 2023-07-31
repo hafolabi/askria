@@ -4,7 +4,9 @@ import {
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import { Checkbox, Input, Select } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import React, { useEffect, useState } from "react";
+import { FiEdit2 } from "react-icons/fi";
 
 function SelectQuestion({
   setSelect,
@@ -85,6 +87,20 @@ function SelectQuestion({
     ]);
   };
 
+  const [inputText, setInputText] = useState("");
+  const [vText, setVText] = useState("");
+  const [duration, setDuration] = useState("");
+  const [sec, setSec] = useState("");
+
+  const handleVideoChange = (selected) => {
+    setSec(selected.value);
+  };
+
+  const handleVideo = () => {
+    console.log("videoQuestion", inputText, vText, duration, sec);
+  };
+
+
   useEffect(() => {
     handleCheckbox();
   }, [other]);
@@ -131,6 +147,10 @@ function SelectQuestion({
               label: "Date ",
             },
             {
+              value: "Multiple choice",
+              label: "Multiple choice ",
+            },
+            {
               value: "File upload",
               label: "File upload ",
             },
@@ -142,7 +162,7 @@ function SelectQuestion({
           onChange={handleChange}
         />
 
-        <div className="mt-5">
+        {selectedOption === "Video question" ? '' : <div className="mt-5">
           <label className="font-medium text-sm">Question</label>
           <Input
             defaultValue={question}
@@ -156,7 +176,7 @@ function SelectQuestion({
               setPayload({ ...payload });
             }}
           />
-        </div>
+        </div>}
 
         {selectedOption === "Yes/No" && (
           <Checkbox
@@ -167,7 +187,7 @@ function SelectQuestion({
           </Checkbox>
         )}
 
-        {selectedOption === "Paragraph" ? (
+        {selectedOption === "Video question" ? '' : (selectedOption === "Paragraph" || selectedOption === "Yes/No") ? (
           ""
         ) : (
           <>
@@ -194,7 +214,9 @@ function SelectQuestion({
             >
               Enable “Other” option{" "}
             </Checkbox>
-            <div className="mt-5">
+            </>
+           )}
+            {selectedOption === "Video question" ? '' : selectedOption === "Multiple choice" ? <div className="mt-5">
               <label className="font-medium text-sm">Max choice allowed</label>
               <Input
                 defaultValue={maxChoice}
@@ -211,9 +233,84 @@ function SelectQuestion({
                   setPayload({ ...payload });
                 }}
               />
+            </div> : ""}
+
+            {selectedOption === "Video question" && (
+          <>
+            <p className="text-gray-400 text-xs mt-7">4 minute</p>
+            <br />
+            <label
+              className="font-semibold border-b text-sm flex justify-between items-center"
+              htmlFor=""
+            >
+              Tell us about yourself?{" "}
+              <FiEdit2
+                onClick={() => setInputText("Tell us about yourself?")}
+              />
+            </label>
+            <br />
+            <label
+              className="font-semibold  text-sm flex justify-between items-center"
+              htmlFor=""
+            >
+              Why did you apply for this program?{" "}
+              <FiEdit2
+                onClick={() =>
+                  setInputText("Why did you apply for this program? ")
+                }
+              />
+            </label>
+            <br />
+            <Input
+              addonBefore="Q:"
+              placeholder="Tell us about yourself?"
+              allowClear
+              enterButton=""
+              value={inputText}
+            />
+            <br />
+            <TextArea
+              rows={4}
+              className="mt-4"
+              placeholder="Please talk about your achievements, goals and what you worked on as the latest project."
+              value={vText}
+              onChange={(e) => setVText(e.target.value)}
+            />
+            <div className="flex gap-4 mt-3">
+              <Input
+                placeholder="Max duration of video"
+                value={duration}
+                type="number"
+                min={1}
+                onChange={(e) => setDuration(e.target.value)}
+              />
+              <Select
+                labelInValue
+                defaultValue={{
+                  value: "in (sec/min)",
+                  label: "in (sec/min)",
+                }}
+                className="w-full  "
+                options={[
+                  {
+                    value: "1s",
+                    label: "1s ",
+                  },
+                  {
+                    value: "2s",
+                    label: "2s ",
+                  },
+                  {
+                    value: "3s",
+                    label: "3s ",
+                  },
+                ]}
+                onChange={handleVideoChange}
+              />
             </div>
           </>
         )}
+          
         <div className="flex justify-between items-center mt-3">
           {!profileQuestion?.type && (
             <button
@@ -229,7 +326,11 @@ function SelectQuestion({
           )}
           <button
             className="bg-[#087B2F] px-4 py-2 text-white rounded-md"
-            onClick={()=>handleSubmit()}
+            onClick={() => {
+              selectedOption === "Video question"
+                ? handleVideo()
+                : handleSubmit();
+            }}
           >
             save
           </button>

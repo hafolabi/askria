@@ -13,11 +13,11 @@ dataService.getPayload = () =>
           }
     });
 
-dataService.upadatePayload = (data) =>
+dataService.upadatePayload = (payload) =>
     service({
         url: '/647.7531040230652/programs/exercitationem/application-form',
         method: 'put',
-        data,
+        data: {data: payload},
         headers : {
             'Content-Type': 'application/json',
           }
